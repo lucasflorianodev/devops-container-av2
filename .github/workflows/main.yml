@@ -21,7 +21,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install flask
-          pip install unittest
 
       - name: Run tests
         run: python test_app.py
