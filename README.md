@@ -1,26 +1,39 @@
-# CI/CD Pipeline com Flask e GitHub Actions 🚀
+# Projeto DevOps com Containers 🐳
 
-Este é um projeto simples que demonstra a implementação de um pipeline de **Integração Contínua** e **Entrega Contínua** (CI/CD) usando Flask, Docker e GitHub Actions. Ele inclui uma aplicação web básica em Flask, testes automatizados e uma configuração de pipeline CI/CD para garantir a qualidade do código e o processo de implantação.
+Este projeto configura um ambiente DevOps utilizando **Docker** e **Docker Compose** para orquestrar containers de banco de dados, backend, frontend e servidor web. Ele contém um **backend em Node.js**, um **frontend estático** servido via Nginx, e bancos de dados como **MySQL**, **PostgreSQL** ou **MongoDB** configurados com variáveis de ambiente.
 
----
+## Funcionalidades
 
-## 📝 Funcionalidades
+- **Frontend**: Servido por Nginx usando uma imagem leve (`nginx:alpine`).
+- **Backend**: Node.js com **NestJS** e **TypeORM**.
+- **Banco de Dados**: Suporte a **MySQL**, **PostgreSQL** ou **MongoDB**, configurado com variáveis de ambiente para facilitar a configuração de credenciais.
+- **Docker Compose**: Facilita a orquestração dos containers de banco de dados, backend e frontend.
 
-- **Aplicação Flask**: Um servidor básico que retorna `Hello, World!`.
-- **Testes Automatizados**: Garante que o aplicativo funcione corretamente.
-- **Pipeline CI/CD**: Automatiza o teste e a implantação usando GitHub Actions.
-- **Deploy Simulado**: Exemplo simples para expandir para ambientes reais no futuro.
+## Tecnologias Utilizadas
 
----
+- **Docker**: Para criar e rodar os containers.
+- **Node.js**: Backend utilizando a framework **NestJS**.
+- **Nginx**: Servindo arquivos estáticos do frontend.
+- **MySQL / PostgreSQL / MongoDB**: Banco de dados com containers dedicados.
+- **Docker Compose**: Para gerenciar múltiplos containers de forma simplificada.
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```plaintext
-📂 projeto-ci-cd-flask
-├── app.py                 # Código da aplicação Flask
-├── test_app.py            # Testes unitários para a aplicação
-├── Dockerfile             # Configuração para container Docker
-├── requirements.txt       # Dependências do projeto
-└── .github/
-    └── workflows/
-        └── main.yml       # Configuração do pipeline GitHub Actions
+📂 devops-container-av2
+├── 📂 backend
+│   ├── src/                  # Código do backend
+│   ├── Dockerfile            # Dockerfile para o backend
+│   ├── package.json          # Dependências do Node.js
+│   └── tsconfig.json         # Configuração do TypeScript
+├── 📂 frontend
+│   ├── index.html            # Arquivo principal do frontend
+│   ├── styles.css            # Arquivo de estilos
+│   ├── script.js             # Arquivo de script
+│   ├── Dockerfile            # Dockerfile para o frontend
+│   └── nginx.conf            # Configuração do Nginx
+├── 📂 database
+│   ├── docker-compose.yml    # Orquestração dos containers de banco de dados
+│   └── .env                  # Arquivo de variáveis de ambiente para banco de dados
+├── .dockerignore             # Arquivos a serem ignorados pelo Docker
+└── README.md                 # Documentação do projeto
