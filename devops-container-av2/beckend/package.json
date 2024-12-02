@@ -4,9 +4,10 @@
     "description": "Aplicação backend em Node.js",
     "main": "src/app.js",
     "scripts": {
-      "start": "node src/app.js"
+        "start": "node src/app.js"
     },
     "dependencies": {
-      "express": "^4.18.2"
+        "backend-app": "file:",
+        "express": "^4.18.2"
     }
-  }
+}

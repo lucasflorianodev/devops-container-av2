@@ -1,0 +1,71 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/app_db
+      - MOCK_API_URL=http://mock-api:5000/data
+    depends_on:
+      - db
+      - mock-api
+
+  mock-api:
+    build:
+      context: ./mock-api
+    ports:
+      - "5000:5000"
+    networks:
+      - app_network
+
+  db:
+    db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - db_data:/var/lib/postgresql/data   
+      - ./init-scripts:/docker-entrypoint-initdb.d  
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydatabase
+    depends_on:
+      - db
+    networks:
+      - app_network
+    
+
+volumes:
+  db_data:
+
+networks:
+  app_network:
+    driver: bridge
+
+  volumes:
+  db-data:

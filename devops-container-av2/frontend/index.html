@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador Simples</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    Hello everybody!
+  <div class="container">
+    <h1>Contador</h1>
+    <p id="counter">0</p>
+    <div class="buttons">
+      <button id="increment" class="btn">+1</button>
+      <button id="decrement" class="btn">-1</button>
+    </div>
+  </div>
+
+  <script>
+    // Elementos do DOM
+    const counter = document.getElementById('counter');
+    const incrementButton = document.getElementById('increment');
+    const decrementButton = document.getElementById('decrement');
+
+    // Inicializa o valor do contador
+    let count = 0;
+
+    // Funções para incrementar e decrementar
+    incrementButton.addEventListener('click', () => {
+      count++;
+      counter.textContent = count;
+    });
+
+    decrementButton.addEventListener('click', () => {
+      count--;
+      counter.textContent = count;
+    });
+  </script>
 </body>
 </html>
