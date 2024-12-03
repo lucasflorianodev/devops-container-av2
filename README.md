@@ -103,17 +103,20 @@ Antes de começar, certifique-se de ter o seguinte instalado:
 1. **Docker**: [Guia de Instalação do Docker](https://www.docker.com/get-started)
 2. **Docker Compose**: [Guia de Instalação do Docker Compose](https://docs.docker.com/compose/install/)
 
----
+## Fluxo do Projeto
 
-## Como Executar
+1. **Banco de Dados**:
+   - O banco de dados é configurado e inicializado com os scripts SQL presentes em `init-scripts/`.
+   - As credenciais e configurações são gerenciadas via variáveis de ambiente no arquivo `.env`.
 
-### 1. Clone o Repositório
+2. **Backend**:
+   - O backend se comunica com o banco de dados para manipulação de dados e com a API mock para simulação de dados externos.
+   - A inicialização é gerenciada por scripts como `wait-for-db.sh`.
 
-```bash
-git clone https://github.com/seu-usuario/devops-container-av2.git
-cd devops-container-av2
-- **app.py**: Código principal da API mock, desenvolvido em Python Flask.
-- **requirements.txt**: Lista de dependências Python necessárias para rodar a API mock.
-- **Dockerfile**: Configuração Docker para o ambiente da API mock.
+3. **Frontend**:
+   - Interface simples que consome os dados do backend.
+   - Servido por um container Nginx configurado no `Dockerfile` do frontend.
 
----
+4. **API Mock**:
+   - Simula uma API externa para fornecer dados ao backend.
+   - Implementada em Python Flask e configurada via Docker.
