@@ -2,38 +2,118 @@
 
 Este projeto configura um ambiente DevOps utilizando **Docker** e **Docker Compose** para orquestrar containers de banco de dados, backend, frontend e servidor web. Ele contém um **backend em Node.js**, um **frontend estático** servido via Nginx, e bancos de dados como **MySQL**, **PostgreSQL** ou **MongoDB** configurados com variáveis de ambiente.
 
-## Funcionalidades
+---
 
-- **Frontend**: Servido por Nginx usando uma imagem leve (`nginx:alpine`).
-- **Backend**: Node.js com **NestJS** e **TypeORM**.
-- **Banco de Dados**: Suporte a **MySQL**, **PostgreSQL** ou **MongoDB**, configurado com variáveis de ambiente para facilitar a configuração de credenciais.
-- **Docker Compose**: Facilita a orquestração dos containers de banco de dados, backend e frontend.
+## Sumário
+
+1. [Visão Geral](#visão-geral)
+2. [Tecnologias Utilizadas](#tecnologias-utilizadas)
+3. [Decisões Arquiteturais](#decisões-arquiteturais)
+4. [Estrutura do Projeto](#estrutura-do-projeto)
+5. [Configuração do Ambiente](#configuração-do-ambiente)
+6. [Como Executar](#como-executar)
+7. [Testes Básicos](#testes-básicos)
+8. [Desafios Enfrentados](#desafios-enfrentados)
+9. [Contribuições e Licença](#contribuições-e-licença)
+
+---
+
+## Visão Geral
+
+O objetivo deste projeto é demonstrar como criar, configurar e executar uma aplicação multi-container com **Docker** e **Docker Compose**, garantindo persistência de dados, modularidade e uma comunicação eficiente entre os serviços.
+
+### Componentes:
+
+- **Frontend**: Um contador simples (HTML, CSS e JavaScript).
+- **Backend**: API construída com Python Flask para processamento de dados.
+- **Banco de Dados**: PostgreSQL com persistência via volumes Docker.
+- **API Mock**: Simula uma API externa para fornecer dados ao backend.
+
+---
 
 ## Tecnologias Utilizadas
 
-- **Docker**: Para criar e rodar os containers.
-- **Node.js**: Backend utilizando a framework **NestJS**.
-- **Nginx**: Servindo arquivos estáticos do frontend.
-- **MySQL / PostgreSQL / MongoDB**: Banco de dados com containers dedicados.
-- **Docker Compose**: Para gerenciar múltiplos containers de forma simplificada.
+- **Docker**: Para containerização dos serviços.
+- **Docker Compose**: Para orquestração de múltiplos containers.
+- **Python Flask**: Para criar o backend e a API mock.
+- **PostgreSQL**: Banco de dados relacional.
+- **Nginx**: Para servir o frontend.
+- **JavaScript**: Para a lógica do frontend.
+
+---
+
+## Decisões Arquiteturais
+
+1. **Modularidade**: Cada componente roda em um container independente, facilitando a manutenção e o escalonamento.
+2. **Persistência de Dados**: O banco de dados utiliza volumes para garantir que os dados não sejam perdidos após a reinicialização dos containers.
+3. **Comunicação entre Containers**: Todos os containers estão conectados a uma rede Docker personalizada, permitindo comunicação eficiente usando nomes de serviços como hostnames.
+4. **Orquestração com Docker Compose**: Gerenciar serviços, redes e volumes de forma simplificada.
+
+---
+
 
 ## Estrutura do Projeto
 
-```plaintext
-📂 devops-container-av2
-├── 📂 backend
-│   ├── src/                  # Código do backend
-│   ├── Dockerfile            # Dockerfile para o backend
-│   ├── package.json          # Dependências do Node.js
-│   └── tsconfig.json         # Configuração do TypeScript
-├── 📂 frontend
-│   ├── index.html            # Arquivo principal do frontend
-│   ├── styles.css            # Arquivo de estilos
-│   ├── script.js             # Arquivo de script
-│   ├── Dockerfile            # Dockerfile para o frontend
-│   └── nginx.conf            # Configuração do Nginx
-├── 📂 database
-│   ├── docker-compose.yml    # Orquestração dos containers de banco de dados
-│   └── .env                  # Arquivo de variáveis de ambiente para banco de dados
-├── .dockerignore             # Arquivos a serem ignorados pelo Docker
-└── README.md                 # Documentação do projeto
+Abaixo está uma explicação detalhada sobre cada diretório e arquivo presente no projeto:
+
+### 1. **bd**
+Este diretório contém arquivos relacionados ao banco de dados:
+
+- **.env**: Arquivo com variáveis de ambiente, como credenciais do banco e configurações importantes.
+- **docker-compose.yml**: Define o serviço de banco de dados no ambiente Docker Compose.
+- **Dockerfile**: Configura o container para o banco de dados, com personalizações adicionais, caso necessário.
+
+---
+
+### 2. **backend**
+Diretório responsável pela lógica do backend da aplicação.
+
+- **src/**: Contém o código-fonte principal do backend.
+- **Dockerfile**: Define a configuração Docker para o backend.
+- **package.json e package-lock.json**: Gerencia as dependências do backend (Node.js).
+- **wait-for-db.sh**: Script que garante que o backend só será iniciado após o banco de dados estar disponível.
+
+---
+
+### 3. **frontend**
+Diretório do frontend da aplicação, contendo arquivos para exibição e interação com o usuário.
+
+- **index.html**: Estrutura HTML do frontend.
+- **style.css**: Arquivo de estilos para personalização visual.
+- **script.js**: Arquivo de JavaScript com a lógica do contador.
+- **Dockerfile**: Configura a imagem Docker para servir o frontend como conteúdo estático (usando Nginx).
+
+---
+
+### 4. **init-scripts**
+Scripts de inicialização para o banco de dados.
+
+- **init.sql**: Script SQL para inicializar o banco de dados com tabelas e dados básicos.
+- **backup.sql**: Script contendo um backup do banco de dados para restauração.
+
+---
+
+### 5. **mock-api**
+Diretório dedicado à API mock, que simula uma API externa para comunicação com o backend.
+
+## Configuração do Ambiente
+
+Antes de começar, certifique-se de ter o seguinte instalado:
+
+1. **Docker**: [Guia de Instalação do Docker](https://www.docker.com/get-started)
+2. **Docker Compose**: [Guia de Instalação do Docker Compose](https://docs.docker.com/compose/install/)
+
+---
+
+## Como Executar
+
+### 1. Clone o Repositório
+
+```bash
+git clone https://github.com/seu-usuario/devops-container-av2.git
+cd devops-container-av2
+- **app.py**: Código principal da API mock, desenvolvido em Python Flask.
+- **requirements.txt**: Lista de dependências Python necessárias para rodar a API mock.
+- **Dockerfile**: Configuração Docker para o ambiente da API mock.
+
+---
